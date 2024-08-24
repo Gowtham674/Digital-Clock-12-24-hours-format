@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+        
+        #display{
+            position: relative;
+            top: 80px;
+            left: 150px;
+            display: flex;
+            flex-direction: row;
+            height: 200px;
+            width: 1000px;
+            justify-content: space-around;
+
+        }
+        .para{
+            border: 1px solid rgb(0, 251, 255);
+            width: 150px;
+            border-radius: 10px;
+            text-align: center;
+            line-height: 80px;
+            background-color: rgb(0, 251, 255);
+        }
+        #display1{
+            position: relative;
+            top: 80px;
+            left: 150px;
+            display: flex;
+            flex-direction: row;
+            height: 200px;
+            width: 1000px;
+            justify-content: space-around;
+
+        }
+
+        .values{
+            position: relative;
+            right: 130px;
+            top: 100px;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="head">Set the Format</h1>
+    <select name="" id="clock">
+        <option value="-" id="-">-</option>
+        <option value="12-hr-format" id="twelve">12-hr-format</option>
+        <option value="24-hr-format" id="four">24-hr-format</option>
+    </select>
+
+    <div id="display">
+        <h2 id="Hr" class="para">Hr <h4 id="thr" class="values"></h4></h2>
+        <h2 id="Min" class="para">Min <h4 id="tmin" class="values"></h4></h2>
+        <h2 id="Sec" class="para">Sec <h4 id="tsec" class="values"></h4></h2>
+        <h2 id="am/pm" class="para">AM/PM <h4 id="tam" class="values"></h4></h2>
+    </div>
+
+    <div id="display1">
+        <h2 id="Date" class="para">Date <h4 id="tdate" class="values"></h4></h2>
+        <h2 id="Month" class="para">Month <h4 id="tmonth" class="values"></h4></h2>
+        <h2 id="Year" class="para">Year <h4 id="tyear" class="values"></h4></h2>
+        <h2 id="Day" class="para">Day <h4 id="tday" class="values"></h4></h2>
+    </div>
+
+
+    <script>
+        var twelve=document.getElementById("twelve");
+var four=document.getElementById("four");
+var clock=document.getElementById("clock");
+var thr=document.getElementById("thr");
+var tmin=document.getElementById("tmin");
+var tsec=document.getElementById("tsec");
+var tam=document.getElementById("tam");
+
+var tdate=document.getElementById("tdate");
+var tmonth=document.getElementById("tmonth");
+var tyear=document.getElementById("tyear");
+var tday=document.getElementById("tday");
+
+clock.addEventListener("change",fun2);
+
+function fun2(){
+    if(interval){
+        clearInterval(interval);
+    }
+    var interval=setInterval(fun,1000)
+}
+
+function fun(){
+    
+    var dayanddate=new Date();
+    var hrs=dayanddate.getHours();
+    thr.textContent=hrs;
+    var mi=dayanddate.getMinutes();
+    tmin.textContent=mi;
+    tsec.textContent=dayanddate.getSeconds();
+    tdate.textContent=dayanddate.getDate();
+    var monv=dayanddate.getMonth();
+    var val=["Jan","Feb","March","Apr","May","Jun","jul","Aug","Sep","Oct","Nov","Dec"]
+    tmonth.textContent=val[monv];
+    tyear.textContent=dayanddate.getFullYear();
+    var dayv = dayanddate.getDay();
+    var val2 = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    tday.textContent=val2[dayv];
+
+    if(clock.value === "12-hr-format"){
+        var hours=hrs%12;
+        if(hrs>=12){
+            tam.textContent= "PM";
+            if(hrs>12){
+                thr.textContent=hours;
+            }
+            else if(hrs===12){
+                thr.textContent=12;
+            }
+        }
+        else{
+            tam.textContent= "AM";
+            if(hrs===0){
+                thr.textContent=0;
+            }
+            else{
+                thr.textContent=hrs;
+            }
+        }    
+    }
+    else if (clock.value === "24-hr-format") {  
+            tam.textContent="";
+    }
+}
+    </script>
+</body>
+</html>
+
+
+
+
